@@ -13,9 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //=============================================================================
+//self
 #include "T2lFilesystem.h"
+
+//QT
 #include <QDir>
-//#include <QApplication>
+
+//std
 #include <iostream>
 
 using namespace T2l;

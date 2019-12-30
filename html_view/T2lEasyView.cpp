@@ -66,7 +66,7 @@ EasyView::EasyView()
     setWindowFlags(Qt::WindowStaysOnTopHint);
 
     resize(700, 250);
-    setWindowTitle("Honey Label");
+    setWindowTitle("Cad2l");
     QString iconName = EasyApp::instance().dirResource() + "/honney_annot.png";
     setWindowIcon(QIcon(iconName));
 

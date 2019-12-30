@@ -255,13 +255,13 @@ void TcHtmlViewTabbed::onEmptyQueue()
     setContent(content, "", QUrl("/home"));
 #endif
 
-#ifndef NDEBUG
+/*#ifndef NDEBUG
     QFile log("C:\\TEMP\\t2l\\log.html");
     log.open(QIODevice::Truncate | QIODevice::WriteOnly);
     log.write(content.data(), content.count());
     log.flush();
     log.close();
-#endif
+#endif*/
 
 /*#ifndef FULLHTML
 #elifndef WINDOWS
