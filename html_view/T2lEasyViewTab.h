@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2013 Petr Talla. [petr.talla@gmail.com]
+// Copyright (C) 2019 Petr Talla. [petr.talla@gmail.com]
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,35 +15,33 @@
 //=============================================================================
 #pragma once
 
+#include "T2lEasyViewButton.h"
+
 #include <string>
 
+namespace T2l {
+
+class EasyView;
+class EasyViewHtml;
+
 //=============================================================================
-class TcHtmlViewTab {
-//=============================================================================
+class EasyViewTab
+{
 public:
-//ENUMS
-    enum ViewContentFormat { VCF_HTML, VCF_T2LML };
-
 //<CONSTRUCTION>
-    TcHtmlViewTab(const char* id);
-
-//<METHODS>
-    const char* id() { return id_.c_str(); }
-    void idSet(const char* id);
-
-    const char* name() { return name_.c_str(); }
-    void nameSet(const char* name);
-
-    const char* content() { return content_.c_str(); }
-    void contentSet(const char* content);
-
-    const char* format() { return content_.c_str(); }
-    void formatSet(const char* content);
+    EasyViewTab(EasyView* parent, const char* id, QWidget* widget);
+    virtual ~EasyViewTab();
+//<METHOD>
+    EasyViewHtml* getAsEasyViewHtml();
 //=============================================================================
-protected:
+//<QT>
 //<DATA>
-    std::string       id_;
-    ViewContentFormat format_;
-    std::string       name_;
-    std::string       content_;
+    std::string     id_;
+    EasyView*       parent_;
+    EasyViewButton* button_;
+    QWidget*        widget_;
+private:
+//<OVERRIDES>
 };
+
+} //namespace T2l

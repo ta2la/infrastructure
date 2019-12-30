@@ -13,37 +13,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //=============================================================================
-#pragma once
+#include "T2lEasyApp.h"
+#include <QDir>
+#include <QCoreApplication>
 
-#include <string>
+using namespace T2l;
 
 //=============================================================================
-class TcHtmlViewTab {
+EasyApp::EasyApp()
+{
+}
+
 //=============================================================================
-public:
-//ENUMS
-    enum ViewContentFormat { VCF_HTML, VCF_T2LML };
+QString EasyApp::dirRoot()
+{
+    QDir dir(QCoreApplication::applicationDirPath());
+    dir.cdUp();
+    return dir.absolutePath();
+}
 
-//<CONSTRUCTION>
-    TcHtmlViewTab(const char* id);
-
-//<METHODS>
-    const char* id() { return id_.c_str(); }
-    void idSet(const char* id);
-
-    const char* name() { return name_.c_str(); }
-    void nameSet(const char* name);
-
-    const char* content() { return content_.c_str(); }
-    void contentSet(const char* content);
-
-    const char* format() { return content_.c_str(); }
-    void formatSet(const char* content);
 //=============================================================================
-protected:
-//<DATA>
-    std::string       id_;
-    ViewContentFormat format_;
-    std::string       name_;
-    std::string       content_;
-};

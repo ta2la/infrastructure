@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2013 Petr Talla. [petr.talla@gmail.com]
+// Copyright (C) 2019 Petr Talla. [petr.talla@gmail.com]
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,35 +15,31 @@
 //=============================================================================
 #pragma once
 
+#include <QPushButton>
 #include <string>
 
+namespace T2l {
+
 //=============================================================================
-class TcHtmlViewTab {
-//=============================================================================
+class EasyViewButton : public QPushButton
+{
 public:
-//ENUMS
-    enum ViewContentFormat { VCF_HTML, VCF_T2LML };
-
 //<CONSTRUCTION>
-    TcHtmlViewTab(const char* id);
-
-//<METHODS>
-    const char* id() { return id_.c_str(); }
-    void idSet(const char* id);
-
-    const char* name() { return name_.c_str(); }
-    void nameSet(const char* name);
-
-    const char* content() { return content_.c_str(); }
-    void contentSet(const char* content);
-
-    const char* format() { return content_.c_str(); }
-    void formatSet(const char* content);
+    EasyViewButton( const char* cmd, QWidget* parent = nullptr );
+    virtual ~EasyViewButton();
+//<METHOD>
+    void setImage( const QString& imagePath );
+    void setColorBack( const QColor& color, bool mark);
+    void setActiveOn();
 //=============================================================================
-protected:
+//<QT>
 //<DATA>
-    std::string       id_;
-    ViewContentFormat format_;
-    std::string       name_;
-    std::string       content_;
+private:
+    std::string cmd_;
+//<OVERRIDES>
+Q_OBJECT
+public slots:
+    void onClick();
 };
+
+} //namespace T2l

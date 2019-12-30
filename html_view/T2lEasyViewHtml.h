@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2013 Petr Talla. [petr.talla@gmail.com]
+// Copyright (C) 2019 Petr Talla. [petr.talla@gmail.com]
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,35 +15,38 @@
 //=============================================================================
 #pragma once
 
-#include <string>
+#include "TcCmdEngineMsgReceiver.h"
+#include "TcHtmlViewTab.h"
+
+#include <QVariant>
+#include <QTextBrowser>
+#include <QUrl>
+
+namespace T2l {
 
 //=============================================================================
-class TcHtmlViewTab {
+class EasyViewHtml : public QTextBrowser, public TcCmdEngineMsgReceiver {
+    virtual QVariant loadResource(int type, const QUrl &name);
 //=============================================================================
 public:
-//ENUMS
-    enum ViewContentFormat { VCF_HTML, VCF_T2LML };
-
 //<CONSTRUCTION>
-    TcHtmlViewTab(const char* id);
+    EasyViewHtml();
+    virtual ~EasyViewHtml() {}
+//<METHOD>
+    static std::string activeSingle() { return activeSingle_; }
+    static void activeSingleSet(const char* active) {activeSingle_ = active; }
 
-//<METHODS>
-    const char* id() { return id_.c_str(); }
-    void idSet(const char* id);
-
-    const char* name() { return name_.c_str(); }
-    void nameSet(const char* name);
-
-    const char* content() { return content_.c_str(); }
-    void contentSet(const char* content);
-
-    const char* format() { return content_.c_str(); }
-    void formatSet(const char* content);
+    std::string active() { return active_; }
+    void        activeSet(const char* active) {active_ = active; }
+//Q_OBJECT
+//public slots:
 //=============================================================================
-protected:
+//<QT>
 //<DATA>
-    std::string       id_;
-    ViewContentFormat format_;
-    std::string       name_;
-    std::string       content_;
+    static std::string activeSingle_;
+    std::string active_;
+//<OVERRIDES>
+    virtual void onEmptyQueue();
 };
+
+} //namespace T2l

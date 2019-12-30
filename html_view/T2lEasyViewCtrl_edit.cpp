@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2013 Petr Talla. [petr.talla@gmail.com]
+// Copyright (C) 2019 Petr Talla. [petr.talla@gmail.com]
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,29 +13,40 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //=============================================================================
-#include "./TcHtmlViewTab.h"
+#include "T2lEasyViewCtrl_edit.h"
+#include "TcCmdTransl.h"
+
+#include <QString>
+
+using namespace T2l;
+using namespace std;
 
 //=============================================================================
-TcHtmlViewTab::TcHtmlViewTab(const char* id) :
-    id_(id),
-    format_(VCF_HTML),
-    name_(id)
+EasyViewCtrl_edit::EasyViewCtrl_edit( const char* cmd, QWidget* parent ) :
+    QLineEdit("", parent),
+    cmd_(cmd),
+    entered_(false)
+{
+    connect(this, SIGNAL(returnPressed()), this, SLOT(onEnter()) );
+}
+
+//=============================================================================
+EasyViewCtrl_edit::~EasyViewCtrl_edit()
 {
 }
 
 //=============================================================================
-void TcHtmlViewTab::idSet(const char* id)
-{   id_ = id;
-}
-
-//=============================================================================
-void TcHtmlViewTab::contentSet(const char* content)
-{   content_ = content;
-}
-
-//=============================================================================
-void TcHtmlViewTab::nameSet(const char* name)
-{   name_ = name;
+void EasyViewCtrl_edit::onEnter()
+{
+    QString cmd(cmd_.c_str());
+    if (cmd_.empty()) {
+        cmd = text();
+    }
+    else {
+        cmd = cmd.replace("$TEXT", text());
+    }
+    TcCmdTransl::xcall( cmd.toStdString().c_str(), true );
+    entered_ = true;
 }
 
 //=============================================================================

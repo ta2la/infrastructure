@@ -8,8 +8,11 @@ CONFIG += c++11
 INCLUDEPATH += ./ \
                ../object_registry/ \
                ../command_registry \
-               ../command_registry_ex
-#               ../../base/infrastructure
+               ../command_registry_ex \
+               ../../evo/storage_base/include \
+               ../../base/geogebra \
+               ../../base/base/include
+
 
 SOURCES     += ./*.cpp
 HEADERS     += ./*.h

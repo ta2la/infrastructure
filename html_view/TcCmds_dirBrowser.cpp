@@ -28,7 +28,7 @@
 
 using namespace std;
 
-QString TcCmds_dirBrowser::currentDir_ = "g:/home/KADLUB/test";
+QString TcCmds_dirBrowser::currentDir_ = "C:/HOME/KADLUB/test";
 
 //=============================================================================
 int TcCmds_dirBrowser::tab_set_dir_browser(TcCmdContext* /*context*/, TcArgCol& /*args*/)

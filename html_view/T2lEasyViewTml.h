@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2013 Petr Talla. [petr.talla@gmail.com]
+// Copyright (C) 20198 Petr Talla. [petr.talla@gmail.com]
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,35 +15,39 @@
 //=============================================================================
 #pragma once
 
-#include <string>
+#include "TcCmdEngineMsgReceiver.h"
+#include "TcHtmlViewTab.h"
+
+#include <QVariant>
+#include <QTextBrowser>
+#include <QUrl>
+
+namespace T2l {
 
 //=============================================================================
-class TcHtmlViewTab {
+class EasyViewTml : public QWidget, public TcCmdEngineMsgReceiver {
+
 //=============================================================================
 public:
-//ENUMS
-    enum ViewContentFormat { VCF_HTML, VCF_T2LML };
-
 //<CONSTRUCTION>
-    TcHtmlViewTab(const char* id);
-
-//<METHODS>
-    const char* id() { return id_.c_str(); }
-    void idSet(const char* id);
-
-    const char* name() { return name_.c_str(); }
-    void nameSet(const char* name);
-
-    const char* content() { return content_.c_str(); }
-    void contentSet(const char* content);
-
-    const char* format() { return content_.c_str(); }
-    void formatSet(const char* content);
+    EasyViewTml(const char* refresher = "");
+    virtual ~EasyViewTml() {}
+//<METHOD>
+    void load(QString content);
+//Q_OBJECT
+//public slots:
 //=============================================================================
-protected:
 //<DATA>
-    std::string       id_;
-    ViewContentFormat format_;
-    std::string       name_;
-    std::string       content_;
+    std::string refresher_;
+    QList<QWidget*> items_;
+//<OVERRIDES>
+    virtual void onEmptyQueue();
+//<INTERNALS>
+    void urlHandler_(const QUrl& url);
+//<QT>
+Q_OBJECT
+private slots:
+    void onLinkActivated(const QString& link);
 };
+
+} //namespace T2l

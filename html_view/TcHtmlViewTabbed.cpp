@@ -16,6 +16,7 @@
 #include "TcHtmlViewTabbed.h"
 
 // infrastructure
+#include "T2lHtmlTabsRegistry.h"
 #include "TcHtmlViewTab.h"
 #include <TcCmdLog.h>
 #include <TcCmdTransl.h>
@@ -36,6 +37,10 @@
 // std
 #include <iostream>
 
+bool TcHtmlViewTabbed::noview_ = false;
+
+using namespace T2l;
+
 //=============================================================================
 TcHtmlViewTabbed::TcHtmlViewTabbed() :
     contentBody_(""),
@@ -51,38 +56,16 @@ TcHtmlViewTabbed::~TcHtmlViewTabbed()
 
 //=============================================================================
 void TcHtmlViewTabbed::tabSet(const char* id, const char* content)
-{   TcHtmlViewTab* tab = tabGet_(id);
+{
+    TcHtmlViewTab* tab = HtmlTabsRegistry::instance().tabGet_(id);
     tab->contentSet(content);
     currentTab_ = id;
 }
 
 //=============================================================================
-void TcHtmlViewTabbed::tabAdd(const char* id, const char* name)
-{   TcHtmlViewTab* tab = tabGet_(id);
-    tab->nameSet(name);
-    if ( tabs_.size() == 1 ) currentTab_ = id;
-}
-
-//=============================================================================
-TcHtmlViewTab*  TcHtmlViewTabbed::tabGet_(const char* id)
-{   std::list<TcHtmlViewTab*>::iterator it;
-    for ( it = tabs_.begin(); it != tabs_.end(); it++ )
-    {   TcHtmlViewTab* tabi = *it;
-        if ( strcmp(tabi->id(), id) == 0) return tabi;
-    }
-
-#ifndef NDEBUG
-    std::string test(id);
-#endif
-    TcHtmlViewTab* result = new TcHtmlViewTab(id);
-    tabs_.push_back(result);
-
-    return result;
-}
-
-//=============================================================================
-TcHtmlViewTabbed& TcHtmlViewTabbed::mainView(bool noview)
-{   static TcHtmlViewTabbed* view = NULL;
+TcHtmlViewTabbed& TcHtmlViewTabbed::mainView()
+{
+    static TcHtmlViewTabbed* view = NULL;
     if ( view == NULL )
     {   view = new TcHtmlViewTabbed();
 
@@ -93,7 +76,7 @@ TcHtmlViewTabbed& TcHtmlViewTabbed::mainView(bool noview)
 
         view->resize(830,600);
         view->move(150,50);
-        if ( noview == false ) view->show();
+        if ( noview_ == false ) view->show();
     }
     return *view;
 }
@@ -106,7 +89,7 @@ void TcHtmlViewTabbed::onEmptyQueue()
     cmd += currentTab_;
     EXECUTE(cmd.c_str());
 
-    QString contentBody = tabGet_(currentTab_.c_str())->content();
+    QString contentBody = HtmlTabsRegistry::instance().tabGet_(currentTab_.c_str())->content();
 
     bool nothingChanged = true;
 
@@ -210,7 +193,7 @@ void TcHtmlViewTabbed::onEmptyQueue()
 
     content.append("<div class='tab' style='background-color:'blue'; padding-bottom:50px;'>");
         std::list<TcHtmlViewTab*>::iterator it;
-        for ( it = tabs_.begin(); it != tabs_.end(); it++ )
+        for ( it = HtmlTabsRegistry::instance().tabs_.begin(); it != HtmlTabsRegistry::instance().tabs_.end(); it++ )
         {   TcHtmlViewTab* tabi = *it;
 
             if ( currentTab_ == tabi->id() )
@@ -267,7 +250,7 @@ void TcHtmlViewTabbed::onEmptyQueue()
 #ifndef FULLHTML
     setText(content);
 #elif WINDOWS
-    setHtml(content, QUrl("g:/home"));
+    setHtml(content, QUrl("C:/HOME"));
 #else
     setContent(content, "", QUrl("/home"));
 #endif

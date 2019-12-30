@@ -25,7 +25,7 @@ class TcCmds_htmlView {
 public:
 //<CMDS>
     static QString displayCmdLine(bool isCmd);
-    static QString displayExecutedCmds(bool noview = false);
+    static QString displayExecutedCmds();
 
     static int set_current_tab(TcCmdContext* context, TcArgCol& args);
     static int tab_set_commands(TcCmdContext* context, TcArgCol& args);
@@ -35,6 +35,9 @@ public:
     static int TRACE(TcCmdContext* context, TcArgCol& args);
     static int filesys_select_file(TcCmdContext* context, TcArgCol& args);
     static int filesys_select_dir(TcCmdContext* context, TcArgCol& args);
+    static int html_view_tab_selector(TcCmdContext* context, TcArgCol& args);
+    static int set_main_tab(TcCmdContext* context, TcArgCol& args);
+
 //<REGISTRATOR>
     static bool registrator_;
     static bool registerCmds_()
@@ -49,6 +52,10 @@ public:
         cmd->frontControllExclude();
         cmd = TcCmdEngine::engine().registerCmd("filesys_select_file", filesys_select_file, "filesys");
         cmd = TcCmdEngine::engine().registerCmd("filesys_select_dir",  filesys_select_dir,  "filesys");
+        cmd = TcCmdEngine::engine().registerCmd("html_view_tab_selector",  html_view_tab_selector,  "tab_set");
+        cmd->frontControllExclude();
+        cmd = TcCmdEngine::engine().registerCmd("set_main_tab",  set_main_tab,  "tab_set");
+        cmd->frontControllExclude();
 
         return true;
     }

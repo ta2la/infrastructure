@@ -9,7 +9,6 @@ HEADERS     += ./*.h
 
 INCLUDEPATH += ./ \
                ../command_registry
-               #../../base/infrastructure
 
 CONFIG(debug, debug|release) {
      DEFINES += DEBUG

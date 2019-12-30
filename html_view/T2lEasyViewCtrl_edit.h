@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2013 Petr Talla. [petr.talla@gmail.com]
+// Copyright (C) 2019 Petr Talla. [petr.talla@gmail.com]
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,35 +15,31 @@
 //=============================================================================
 #pragma once
 
+#include <QPushButton>
+#include <QLineEdit>
+
 #include <string>
 
+namespace T2l {
+
 //=============================================================================
-class TcHtmlViewTab {
-//=============================================================================
+class EasyViewCtrl_edit : public QLineEdit
+{
 public:
-//ENUMS
-    enum ViewContentFormat { VCF_HTML, VCF_T2LML };
-
 //<CONSTRUCTION>
-    TcHtmlViewTab(const char* id);
-
-//<METHODS>
-    const char* id() { return id_.c_str(); }
-    void idSet(const char* id);
-
-    const char* name() { return name_.c_str(); }
-    void nameSet(const char* name);
-
-    const char* content() { return content_.c_str(); }
-    void contentSet(const char* content);
-
-    const char* format() { return content_.c_str(); }
-    void formatSet(const char* content);
+    EasyViewCtrl_edit( const char* cmd, QWidget* parent = nullptr );
+    virtual ~EasyViewCtrl_edit();
+//<METHOD>
 //=============================================================================
-protected:
+//<QT>
 //<DATA>
-    std::string       id_;
-    ViewContentFormat format_;
-    std::string       name_;
-    std::string       content_;
+private:
+    std::string cmd_;
+    bool entered_;
+//<OVERRIDES>
+Q_OBJECT
+public slots:
+    void onEnter();
 };
+
+} //namespace T2l

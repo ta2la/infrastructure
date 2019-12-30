@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2013 Petr Talla. [petr.talla@gmail.com]
+// Copyright (C) 2018 Petr Talla. [petr.talla@gmail.com]
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,35 +15,25 @@
 //=============================================================================
 #pragma once
 
-#include <string>
+#include <QString>
+
+namespace T2l {
 
 //=============================================================================
-class TcHtmlViewTab {
+class EasyApp {
 //=============================================================================
 public:
-//ENUMS
-    enum ViewContentFormat { VCF_HTML, VCF_T2LML };
-
 //<CONSTRUCTION>
-    TcHtmlViewTab(const char* id);
+    EasyApp();
+    virtual ~EasyApp() {}
 
-//<METHODS>
-    const char* id() { return id_.c_str(); }
-    void idSet(const char* id);
-
-    const char* name() { return name_.c_str(); }
-    void nameSet(const char* name);
-
-    const char* content() { return content_.c_str(); }
-    void contentSet(const char* content);
-
-    const char* format() { return content_.c_str(); }
-    void formatSet(const char* content);
+    static EasyApp& instance() { static EasyApp i; return i; }
+//<METHOD>
+    QString dirRoot();
+    QString dirResource () { return dirRoot() + "/resource"; }
 //=============================================================================
 protected:
-//<DATA>
-    std::string       id_;
-    ViewContentFormat format_;
-    std::string       name_;
-    std::string       content_;
+    QString dir_;
 };
+
+}

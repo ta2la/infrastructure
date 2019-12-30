@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2013 Petr Talla. [petr.talla@gmail.com]
+// Copyright (C) 2019 Petr Talla. [petr.talla@gmail.com]
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,29 +13,39 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //=============================================================================
-#include "./TcHtmlViewTab.h"
+#include "T2lHtmlTabsRegistry.h"
+#include "TcHtmlViewTabbed.h"
+
+using namespace T2l;
+using namespace std;
 
 //=============================================================================
-TcHtmlViewTab::TcHtmlViewTab(const char* id) :
-    id_(id),
-    format_(VCF_HTML),
-    name_(id)
+HtmlTabsRegistry::HtmlTabsRegistry()
 {
 }
 
 //=============================================================================
-void TcHtmlViewTab::idSet(const char* id)
-{   id_ = id;
+void HtmlTabsRegistry::tabAdd(const char* id, const char* name)
+{   TcHtmlViewTab* tab = tabGet_(id);
+    tab->nameSet(name);
+    if ( tabs_.size() == 1 ) TcHtmlViewTabbed::mainView().currentTab_ = id;
 }
 
 //=============================================================================
-void TcHtmlViewTab::contentSet(const char* content)
-{   content_ = content;
-}
+TcHtmlViewTab*  HtmlTabsRegistry::tabGet_(const char* id)
+{   std::list<TcHtmlViewTab*>::iterator it;
+    for ( it = tabs_.begin(); it != tabs_.end(); it++ )
+    {   TcHtmlViewTab* tabi = *it;
+        if ( strcmp(tabi->id(), id) == 0) return tabi;
+    }
 
-//=============================================================================
-void TcHtmlViewTab::nameSet(const char* name)
-{   name_ = name;
+#ifndef NDEBUG
+    std::string test(id);
+#endif
+    TcHtmlViewTab* result = new TcHtmlViewTab(id);
+    tabs_.push_back(result);
+
+    return result;
 }
 
 //=============================================================================

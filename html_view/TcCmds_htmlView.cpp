@@ -14,6 +14,8 @@
 // limitations under the License.
 //=============================================================================
 #include "TcCmds_htmlView.h"
+#include "T2lEasyViewHtml.h"
+#include "T2lEasyView.h"
 
 #include "T2lFilesystem.h"
 #include "TcHtmlViewTabbed.h"
@@ -65,7 +67,7 @@ QString TcCmds_htmlView::displayCmdLine(bool isCmd)
     "<div class='input'>"
     "    <form  name='cmd_form' action='' method='get'>"
     );
-    if (isCmd) {
+/*    if (isCmd) {
         result.append("cmd: ");
     }
     else {
@@ -80,21 +82,22 @@ QString TcCmds_htmlView::displayCmdLine(bool isCmd)
     "    </form>"
          "<a href='tcview:://#cmdlist'>available commands</a><br><hr>"
     "</div>"
-    );
+    );*/
 
+    //result.append("<br><hr>");
     result.append(displayExecutedCmds());
 
     return result;
 }
 
 //=============================================================================
-QString TcCmds_htmlView::displayExecutedCmds(bool noview)
+QString TcCmds_htmlView::displayExecutedCmds()
 {
     QString result;
 
     result.append("<div>");
 
-    TcCmdLog* log = TcHtmlViewTabbed::mainView(noview).log_;
+    TcCmdLog* log = TcHtmlViewTabbed::mainView().log_;
 
     for ( long i = log->count()-1; ( (i > log->count()-9) && (i >=0) ) ; i-- )
     {
@@ -170,6 +173,28 @@ int TcCmds_htmlView::filesys_select_dir(TcCmdContext* /*context*/, TcArgCol& arg
     TcArgVal* val = args.at(1)->getAsVal();
 
     Filesystem::instance().setActualDir(val->value());
+
+    return 1;
+}
+
+//=============================================================================
+int TcCmds_htmlView::html_view_tab_selector(TcCmdContext* /*context*/, TcArgCol& args)
+{
+    if (args.count() < 1) return args.appendError("directory name must be entered");
+    TcArgVal* val = args.at(1)->getAsVal();
+
+    EasyViewHtml::activeSingleSet(val->value());
+
+    return 1;
+}
+
+//=============================================================================
+int TcCmds_htmlView::set_main_tab(TcCmdContext* context, TcArgCol& args)
+{
+    if (args.count() < 2) return args.appendError("tab id must be entered");
+    TcArgVal* val = args.at(1)->getAsVal();
+
+    EasyView::activeSet(val->value());
 
     return 1;
 }

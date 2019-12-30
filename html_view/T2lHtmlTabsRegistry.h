@@ -1,5 +1,5 @@
 //
-// Copyright (C) 2013 Petr Talla. [petr.talla@gmail.com]
+// Copyright (C) 20198 Petr Talla. [petr.talla@gmail.com]
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,35 +15,38 @@
 //=============================================================================
 #pragma once
 
-#include <string>
+#include "TcCmdEngineMsgReceiver.h"
+#include "TcHtmlViewTab.h"
+
+#include <QVariant>
+#include <QTextBrowser>
+#include <QUrl>
+
+#include <list>
+
+namespace T2l {
 
 //=============================================================================
-class TcHtmlViewTab {
+class HtmlTabsRegistry {
 //=============================================================================
 public:
-//ENUMS
-    enum ViewContentFormat { VCF_HTML, VCF_T2LML };
-
 //<CONSTRUCTION>
-    TcHtmlViewTab(const char* id);
+    HtmlTabsRegistry();
+    virtual ~HtmlTabsRegistry() {}
 
-//<METHODS>
-    const char* id() { return id_.c_str(); }
-    void idSet(const char* id);
+    static HtmlTabsRegistry& instance() { static HtmlTabsRegistry i; return i; }
 
-    const char* name() { return name_.c_str(); }
-    void nameSet(const char* name);
-
-    const char* content() { return content_.c_str(); }
-    void contentSet(const char* content);
-
-    const char* format() { return content_.c_str(); }
-    void formatSet(const char* content);
+    TcHtmlViewTab*  tabGet_(const char* id);
+    //void            tabAdd(const char* id, TcHtmlViewTab* tab)
+//<METHOD>
+    void tabAdd(const char* id, const char* name);
+    //TcHtmlViewTab* tabGet_(const char* id);
 //=============================================================================
-protected:
+//<QT>
 //<DATA>
-    std::string       id_;
-    ViewContentFormat format_;
-    std::string       name_;
-    std::string       content_;
+    std::list<TcHtmlViewTab*> tabs_;
+protected:
+//<OVERRIDES>
 };
+
+} //namespace T2l
