@@ -21,12 +21,13 @@
 #include <QVariant>
 #include <QTextBrowser>
 #include <QUrl>
+#include <QString>
 
 namespace T2l {
 
 //=============================================================================
 class EasyViewTml : public QWidget, public TcCmdEngineMsgReceiver {
-
+// https://github.com/ta2la/infrastructure/wiki#EasyViewTml
 //=============================================================================
 public:
 //<CONSTRUCTION>
@@ -34,8 +35,7 @@ public:
     virtual ~EasyViewTml() {}
 //<METHOD>
     void load(QString content);
-//Q_OBJECT
-//public slots:
+    static void substitute(QString& content);
 //=============================================================================
 //<DATA>
     std::string refresher_;

@@ -20,8 +20,6 @@
 #include "TcCmdEngine.h"
 #include "TcSysInfo.h"
 
-#include "FlowLayout.h"
-
 #include "T2lEasyViewTml.h"
 
 #include <QGraphicsProxyWidget>
@@ -143,12 +141,6 @@ void EasyView::urlHandlerHtml_(const QUrl& url)
 }
 
 //=============================================================================
-/*void EasyView::onLinkActivated(const QString& link)
-{
-    urlHandler_(link);
-}*/
-
-//=============================================================================
 EasyViewTml* EasyView::loadTml(QString content, const char* id)
 {
     EasyViewTml* widget = new EasyViewTml(id);
@@ -157,19 +149,5 @@ EasyViewTml* EasyView::loadTml(QString content, const char* id)
 
     return widget;
 }
-
-//=============================================================================
-/*QTextBrowser* EasyView::loadHtml(QString content)
-{
-    EasyViewHtml* widget = new EasyViewHtml();
-    content = "";
-    for (int i = 0; i < 50; i++) content+="text<br>";
-
-    widget->setHtml(content);
-
-    QObject::connect(widget, SIGNAL(anchorClicked(const QUrl&)), this, SLOT(urlHandlerHtml_(const QUrl&)));
-
-    return widget;
-}*/
 
 //=============================================================================

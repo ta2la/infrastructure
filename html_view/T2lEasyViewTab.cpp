@@ -22,7 +22,8 @@ using namespace T2l;
 
 //=============================================================================
 EasyViewTab::EasyViewTab(EasyView* parent, const char* id, QWidget* widget ) :
-    id_(id)
+    id_(id),
+    parent_(parent)
 {
     QString cmd = "set_main_tab ";
     cmd += id;
@@ -39,7 +40,6 @@ EasyViewTab::EasyViewTab(EasyView* parent, const char* id, QWidget* widget ) :
         view->setHtml("empty");
         QObject::connect(view, SIGNAL(anchorClicked(const QUrl&)), parent, SLOT(urlHandlerHtml_(const QUrl&)));
         widget_ = view;
-        //parent_->stacked_->addWidget(view);
     }
     else {
         widget_ = widget;

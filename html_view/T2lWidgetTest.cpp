@@ -14,9 +14,6 @@
 // limitations under the License.
 //=============================================================================
 #include "T2lWidgetTest.h"
-//#include "HnwWidget_button.h"
-//#include "HnwWidget_cmdDialog.h"
-//#include "HnwWidget_toolbar.h"
 
 #include "TcCmdEngine.h"
 #include "TcSysInfo.h"
@@ -59,25 +56,15 @@ WidgetTest::WidgetTest(const QString& resourceDir):
     setWindowIcon(QIcon(resourceDir_ + "/honney_annot.png"));
     setWindowIconText("LabeL T2L");
 
-    //Widget_toolbar* toolbar = new Widget_toolbar(this);
-
     textEdit_ = new QLineEdit();
     textEdit_->setText("");
     textEdit_->show();
 
     QObject::connect(textEdit_, SIGNAL(returnPressed()), this, SLOT(enterText_()));
 
-    //Widget_cmdDialog* tb = new Widget_cmdDialog(this);
-    //tb->setFrameStyle(QFrame::NoFrame);
-    //QString style("background-color:");
-    //style.append( palette().color(QWidget::backgroundRole()).name() );
-    //style.append(";");
-    //tb->setStyleSheet(style);
-
     QVBoxLayout *layout = new QVBoxLayout;
 
     //======================================================
-    //layout->addStretch();
     QHBoxLayout *layoutEdit = new QHBoxLayout;
     layoutEdit->addWidget(textEdit_);
     textLabel_ = new QLabel("aaa");
@@ -94,7 +81,6 @@ WidgetTest::WidgetTest(const QString& resourceDir):
     QPushButton *button5 = new QPushButton("Five");
 
     //=======================================================
-    //layout->addStretch();
     QHBoxLayout *lh = new QHBoxLayout;
     lh->addWidget(button1);
     lh->addWidget(button5);
@@ -102,7 +88,6 @@ WidgetTest::WidgetTest(const QString& resourceDir):
     layout->addLayout(lh);
 
     //=======================================================
-    //layout->addStretch();
     FlowLayout *flowLayout = new FlowLayout();
     flowLayout->addWidget(new QPushButton(tr("Short")));
     flowLayout->addWidget(new QPushButton(tr("Longer")));
@@ -119,7 +104,6 @@ WidgetTest::WidgetTest(const QString& resourceDir):
     layout->addLayout(flowLayout);
 
     //======================================================
-    //layout->addStretch();
     FlowLayout *flowLayout2 = new FlowLayout();
     flowLayout2->addWidget(new QPushButton(tr("sss Short")));
     flowLayout2->addWidget(new QPushButton(tr("sss Longer")));
@@ -136,8 +120,6 @@ WidgetTest::WidgetTest(const QString& resourceDir):
     resize(600, 400);
 
     setLayout(layout);
-
-    //layout->addSpacerItem(new QSpacerItem(10, 300, QSizePolicy::Expanding) );
 }
 
 //=============================================================================

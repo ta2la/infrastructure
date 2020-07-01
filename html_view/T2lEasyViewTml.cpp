@@ -47,6 +47,8 @@ EasyViewTml::EasyViewTml(const char* refresher) :
 //=============================================================================
 void EasyViewTml::onEmptyQueue()
 {
+    //cout << "  EasyViewTml::onEmptyQueue" << endl;
+
     if (refresher_.empty()) return;
 
     std::string cmd("tab_set_");
@@ -160,6 +162,14 @@ void EasyViewTml::load(QString content)
 
             items_.append(line);
         }
+        if ( controlA->value() == "hr") {
+            //QFrame* line = new QFrame();
+            QLabel* line = new QLabel("-------------------------------------");
+            //line->setFrameShape(QFrame::HLine);
+            //line->setFrameShadow(QFrame::Sunken);
+            flowLayout->addWidget(line);
+            items_.append(line);
+        }
     }
     wlayout->addLayout(flowLayout);
 
@@ -179,6 +189,17 @@ void EasyViewTml::urlHandler_(const QUrl& url)
 
     QString cmd(QUrl::fromPercentEncoding(url.fragment().toLatin1()));
     TcCmdTransl::xcall( cmd.toUtf8().data(), true );
+}
+
+//=============================================================================
+void EasyViewTml::substitute(QString& content)
+{
+    content = content.replace("T:C;", "type: control;");
+    content = content.replace("C:T;", "control: text;");
+    content = content.replace("C:B;", "control: button;");
+    content = content.replace("C:E;", "control: edit;");
+    content = content.replace(";", "\n");
+    content = content.replace("&nbsp_", "&nbsp;");
 }
 
 //=============================================================================

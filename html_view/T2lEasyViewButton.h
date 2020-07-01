@@ -31,6 +31,8 @@ public:
     void setImage( const QString& imagePath );
     void setColorBack( const QColor& color, bool mark);
     void setActiveOn();
+
+    void setCmd(const QString& cmd) { cmd_ = cmd.toStdString(); }
 //=============================================================================
 //<QT>
 //<DATA>

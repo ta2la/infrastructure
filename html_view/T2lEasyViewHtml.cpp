@@ -17,6 +17,10 @@
 #include "TcCmdTransl.h"
 #include "T2lHtmlTabsRegistry.h"
 #include "TcHtmlViewTabbed.h"
+#include "T2lEasyView.h"
+
+#include <QDir>
+#include <QFileInfo>
 
 #include <iostream>
 
@@ -38,12 +42,55 @@ QVariant EasyViewHtml::loadResource(int type, const QUrl &name)
         return image;
     }
 
+    QString suffix = QFileInfo(name.path()).suffix();
+    suffix = suffix.toLower();
+
+    bool isImage = false;
+    if      (suffix == "png")  isImage = true;
+    else if (suffix == "jpg")  isImage = true;
+    else if (suffix == "jpeg") isImage = true;
+    else if (suffix == "bmp")  isImage = true;
+    else if (suffix == "gif")  isImage = true;
+    else if (suffix == "JPG")  isImage = true;
+
+    if (isImage == false) return QVariant();
+
+    QString path = name.path();
+    QFileInfo pathInfo(name.path());
+    QDir dir = pathInfo.dir();
+
+    QDir dirThumb(dir.absolutePath() + "/" + "thumbs");
+    if ( dirThumb.exists() == false ) {
+        dir.mkdir("thumbs");
+    }
+
+    QFileInfo thumbFileName(dirThumb.filePath(pathInfo.fileName()));
+    if ( thumbFileName.exists() == false ) {
+
+        QImage imageOrig(pathInfo.absoluteFilePath());
+        QImage image = imageOrig.scaled(100, 100, Qt::KeepAspectRatio);
+        image.save(thumbFileName.absoluteFilePath());
+    }
+
+    QImage image(thumbFileName.absoluteFilePath());
+    return image;
+
     return QVariant();
 }
 
 //=============================================================================
 void EasyViewHtml::onEmptyQueue()
 {
+    string a = active_;
+    string as = activeSingle_;
+
+    if (active_ != EasyView::active()) {
+        setHtml("skipping");
+        return;
+    }
+
+    //cout << "  EasyViewHtml::onEmptyQueue" << endl;
+
     string aaa = active_;
     if (aaa.empty()) aaa = activeSingle_;
 
@@ -63,7 +110,7 @@ void EasyViewHtml::onEmptyQueue()
 
     setHtml(contentBody);
 
-    cout << "refresh" << endl;
+    //cout << "refresh" << endl;
 }
 
 //=============================================================================

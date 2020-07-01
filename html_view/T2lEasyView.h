@@ -32,7 +32,6 @@ namespace T2l
 {
 
 class EasyViewTml;
-//class EasyViewButton;
 
 //===================================================================
 class EasyView : public QWidget, public TcCmdEngineMsgReceiver {
@@ -48,6 +47,7 @@ public:
     EasyViewTml*  loadTml(QString content, const char* id = "");
 
     static void activeSet(const char* value) { active_ = value; }
+    static std::string active() { return active_; }
 
     //QWidget* createCad();
 //===================================================================

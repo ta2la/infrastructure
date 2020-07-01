@@ -33,6 +33,7 @@ public:
 //<METHODS>
     static TcHtmlViewTabbed& mainView();
     static noview() { noview_ = true; }
+    void tabAdd(const char* id, const char* name);
 
     void tabSet(const char* id, const char* content);
     void tabSetCurrent(const char* id) {currentTab_ = id; }
@@ -50,7 +51,7 @@ public:
     virtual void onEmptyQueue();
 //<DATA>
     std::string currentTab_;
-    //std::list<TcHtmlViewTab*> tabs_;
+    std::list<TcHtmlViewTab*> tabs_;
 protected:
     TcCmdLog* log_; //TODO
 
@@ -62,7 +63,7 @@ protected:
 
     static bool noview_;
 //<INTERNALS>
-
+    TcHtmlViewTab* tabGet_(const char* id);
 //<QT>
     Q_OBJECT
 //<FRIENDS>
