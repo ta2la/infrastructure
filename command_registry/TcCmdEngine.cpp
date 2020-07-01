@@ -23,12 +23,13 @@
 #include <list>
 #include <cstring>
 #include <cstdlib>
+#include <iostream>
 
 using namespace std;
 
 //=============================================================================
 TcCmdEngine::TcCmdEngine() :
-    frontControllerActive_(false),
+    //frontControllerActive_(false),
     loop_(0),
     pendingExecution_(false)
 {   append(new TcCmdProcessExe(this));
@@ -54,19 +55,14 @@ TcCmd* TcCmdEngine::find(TcArgCol& args)
 //=============================================================================
 int TcCmdEngine::execute(TcArgCol* args, bool queued  )
 {
-    /*if (queued && queued_)
-    {   queue_.push_back(args);
-        return 0;
-    }*/
-
     int result = 0;
 
     bool isFrontController = false;
     TcCmd* cmd = find(*args);
-    if ( (cmd != NULL) && cmd->frontControll() && (frontControllerActive_ == false) )
+    /*if ( (cmd != NULL) && cmd->frontControll() && (frontControllerActive_ == false) )
     {   isFrontController = true;
     }
-    if ( isFrontController ) frontControllerActive_ = true;
+    if ( isFrontController ) frontControllerActive_ = true;*/
 
     std::list<TcCmdProcess*>::iterator it;
     for ( it = processes_.begin(); it != processes_.end(); it++ )
@@ -81,7 +77,7 @@ int TcCmdEngine::execute(TcArgCol* args, bool queued  )
         if ( process->cleanProtocol() ) break;
     }
 
-    if ( isFrontController ) frontControllerActive_ = false;
+    //if ( isFrontController ) frontControllerActive_ = false;
 
     pendingExecution_ = true;
 
@@ -90,9 +86,12 @@ int TcCmdEngine::execute(TcArgCol* args, bool queued  )
 
 //=============================================================================
 void TcCmdEngine::executeQueue(void)
-{   if ( !pendingExecution_ && queue_.empty() ) return;
+{
+    if ( !pendingExecution_ && queue_.empty() ) return;
 
     loop_++;
+
+    //cout << "---------------------------------- loop: " << loop_ << endl;
 
     while (queue_.empty() == false)
     {
@@ -102,8 +101,15 @@ void TcCmdEngine::executeQueue(void)
     }
 
     std::list<TcCmdEngineMsgReceiver*>::iterator it;
+    int i = 0;
     for ( it = msgReceivers_.begin(); it != msgReceivers_.end(); it++ )
-    {   (*it)->onEmptyQueue();
+    {
+        /*if ( (*it)->receiverActive() == false ) {
+            cout << "skipping " << i++ << endl;
+            continue;
+        }*/
+        (*it)->onEmptyQueue();
+        //cout << "REFRESH " << i++ << endl;
     }
 
     pendingExecution_ = false;

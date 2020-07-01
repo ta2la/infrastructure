@@ -41,8 +41,6 @@ public:
     void        setCommandBase(const char* commandBase) { commandBase_ = commandBase; }
     void        exeCommandBase( const char* variable );
 
-/*    const char* getCommandNameEx();
-    const char* getCommandHintEx();*/
 //=============================================================================
 protected:
 //<DATA>
@@ -60,4 +58,3 @@ protected:
 //<FRIENDS>
     friend class TcViewSys_filter;
 };
-

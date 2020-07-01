@@ -35,11 +35,11 @@ public:
     void append(TcCmdProcess* process);
 //<METHODS>
     TcCmd* registerCmd(const char* name, TcCmd::Cmd cmd, const char* block = "__UNDEFINED__", const char* help = "__UNDEFINED__");
-    int  execute(TcArgCol* args, bool queued);
+    int    execute(TcArgCol* args, bool queued);
     TcCmd* find(TcArgCol& args);
-    bool frontControllerActive(void) {return frontControllerActive_;}
-    void executeQueue(void);
-    void queuedSetOn() { queued_ = true; }
+    void   executeQueue(void);
+    //void queuedSetOn() { queued_ = true; }
+    //bool frontControllerActive(void) {return frontControllerActive_;}
 
     std::list<std::string> list();
 //=============================================================================
@@ -49,8 +49,8 @@ protected:
     std::list<TcCmdProcess*>      processes_;
     std::list<TcArgCol*>          queue_;
     std::list<TcCmdEngineMsgReceiver*>  msgReceivers_;
-    bool                          frontControllerActive_;
-    bool                          queued_;
+    //bool                          frontControllerActive_;
+    //bool                          queued_;
     int                           loop_;
     bool                          pendingExecution_;
 //<FRIENDS>

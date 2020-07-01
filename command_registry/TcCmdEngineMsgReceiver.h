@@ -20,7 +20,7 @@ class  TcCmdEngineMsgReceiver {
 //=============================================================================
 public:
     TcCmdEngineMsgReceiver();
-    virtual void onEmptyQueue() {;}
+    virtual void onEmptyQueue() {}
 //=============================================================================
 };
 

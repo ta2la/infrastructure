@@ -18,6 +18,7 @@
 
 //=============================================================================
 TcCmdEngineMsgReceiver::TcCmdEngineMsgReceiver()
+    //receiverActive_(true)
 {   TcCmdEngine::engine().msgReceivers_.push_back(this);
 }
 

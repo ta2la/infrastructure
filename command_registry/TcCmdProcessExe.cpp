@@ -31,12 +31,12 @@ int TcCmdProcessExe::execute(TcArgCol& args, bool /*isFrontController*/)
 {   if ( args.count() == 0 ) return args.appendError("enter at least first argument which is command name");
 
     TcArgVal* cmdName = args.at(0)->getAsVal();
-    if ( cmdName == NULL )
+    if ( cmdName == nullptr )
     {   return args.appendError("command name (the first argument) must be of category TcArgVal");
     }
 
     TcCmd* cmd = engine_->find(args);
-    if ( cmd == NULL ) return args.appendError("comand name not found");
+    if ( cmd == nullptr ) return args.appendError("comand name not found");
     int result = cmd->cmd()(this->context_, args);
 
     return result;
