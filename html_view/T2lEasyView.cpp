@@ -59,12 +59,12 @@ string EasyView::active_ = "cad";
 #define TAB_HEIGHT 40
 
 //=============================================================================
-EasyView::EasyView()
+EasyView::EasyView(const char* name)
 {
     setWindowFlags(Qt::WindowStaysOnTopHint);
 
-    resize(700, 250);
-    setWindowTitle("Cad2l");
+    resize(800, 350);
+    setWindowTitle(name);
     QString iconName = EasyApp::instance().dirResource() + "/honney_annot.png";
     setWindowIcon(QIcon(iconName));
 

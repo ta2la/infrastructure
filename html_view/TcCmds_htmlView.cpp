@@ -23,6 +23,8 @@
 #include "TcArgCol.h"
 #include "TcArgVal.h"
 
+#include "T2lQueue.h"
+
 #include <QDir>
 #include <iostream>
 
@@ -143,6 +145,19 @@ int TcCmds_htmlView::tab_set_log(TcCmdContext* /*context*/, TcArgCol& /*args*/)
 }
 
 //=============================================================================
+int TcCmds_htmlView::tab_set_executed(TcCmdContext* /*context*/, TcArgCol& /*args*/)
+{
+    QString result;
+
+    result.append("<div class='toolbar'>");
+    result.append(TcCmds_htmlView::displayCmdLine(!Queue::instance()->consumeText()));
+    result.append("</div>");
+
+    TcHtmlViewTabbed::mainView().tabSet("exed", result.toLatin1().data());
+    return 0;
+}
+
+//=============================================================================
 int TcCmds_htmlView::tab_set_info(TcCmdContext* /*context*/, TcArgCol& /*args*/)
 {   QString result;
 
@@ -154,6 +169,8 @@ int TcCmds_htmlView::tab_set_info(TcCmdContext* /*context*/, TcArgCol& /*args*/)
 
     return 0;
 }
+
+
 
 //=============================================================================
 int TcCmds_htmlView::filesys_select_file(TcCmdContext* /*context*/, TcArgCol& args)

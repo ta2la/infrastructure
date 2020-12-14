@@ -19,9 +19,10 @@
 #include "TcHtmlViewTab.h"
 
 #include <QVariant>
-#include <QTextBrowser>
+//#include <QTextBrowser>
 #include <QUrl>
 #include <QString>
+#include <QWidget>
 
 namespace T2l {
 

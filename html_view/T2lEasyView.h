@@ -38,7 +38,7 @@ class EasyView : public QWidget, public TcCmdEngineMsgReceiver {
 //===================================================================
 public:
 //<CONSTRUCTION>
-    EasyView();
+    EasyView(const char* name);
     virtual ~EasyView() {}
 
     void createTab(const char* id, QWidget* widget = nullptr);
@@ -48,8 +48,6 @@ public:
 
     static void activeSet(const char* value) { active_ = value; }
     static std::string active() { return active_; }
-
-    //QWidget* createCad();
 //===================================================================
 //<INTERNALS>
 //<OVERRIDES>

@@ -37,6 +37,7 @@ public:
     static int filesys_select_dir(TcCmdContext* context, TcArgCol& args);
     static int html_view_tab_selector(TcCmdContext* context, TcArgCol& args);
     static int set_main_tab(TcCmdContext* context, TcArgCol& args);
+    static int tab_set_executed(TcCmdContext* /*context*/, TcArgCol& /*args*/);
 
 //<REGISTRATOR>
     static bool registrator_;
@@ -55,6 +56,8 @@ public:
         cmd = TcCmdEngine::engine().registerCmd("html_view_tab_selector",  html_view_tab_selector,  "tab_set");
         cmd->frontControllExclude();
         cmd = TcCmdEngine::engine().registerCmd("set_main_tab",  set_main_tab,  "tab_set");
+        cmd->frontControllExclude();
+        cmd = TcCmdEngine::engine().registerCmd( "tab_set_exed",    tab_set_executed, "tab_toolbar");
         cmd->frontControllExclude();
 
         return true;

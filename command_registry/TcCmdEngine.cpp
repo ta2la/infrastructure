@@ -59,10 +59,11 @@ int TcCmdEngine::execute(TcArgCol* args, bool queued  )
 
     bool isFrontController = false;
     TcCmd* cmd = find(*args);
-    /*if ( (cmd != NULL) && cmd->frontControll() && (frontControllerActive_ == false) )
+    //if ( (cmd != NULL) && cmd->frontControll() && (frontControllerActive_ == false) )
+    if ( (cmd != NULL) && cmd->frontControll() )
     {   isFrontController = true;
     }
-    if ( isFrontController ) frontControllerActive_ = true;*/
+    //if ( isFrontController ) frontControllerActive_ = true;
 
     std::list<TcCmdProcess*>::iterator it;
     for ( it = processes_.begin(); it != processes_.end(); it++ )

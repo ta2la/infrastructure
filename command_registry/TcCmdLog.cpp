@@ -17,6 +17,8 @@
 #include "TcArgCol.h"
 #include "Protocol.h"
 
+#include <iostream>
+
 //=============================================================================
 TcCmdLog::TcCmdLog(TcCmdEngine* engine) :
     TcCmdProcess(engine)
@@ -30,6 +32,8 @@ int TcCmdLog::execute(TcArgCol& args, bool isFrontController)
     std::string ARGS;
     args.toString(ARGS);
     items_.push_back(TcCmdLogItem(ARGS.c_str(), Protocol::protocolCmdGet().get(), isFrontController));
+
+    //std::cout << "##################" << ARGS.c_str() << Protocol::protocolCmdGet().get() << std::endl;
 
     return 0;
 }
