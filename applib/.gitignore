@@ -1,0 +1,7 @@
+*
+!*.pro
+!include/
+!src/
+!src/*.cpp
+!include/*.h
+!.gitignore
