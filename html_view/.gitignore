@@ -1,0 +1,6 @@
+*
+!*.cpp
+!*.h
+!html_view.pro
+!*.md
+!.gitignore

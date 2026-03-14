@@ -1,0 +1,49 @@
+//
+// Copyright (C) 2019 Petr Talla. [petr.talla@gmail.com]
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//		      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//=============================================================================
+#pragma once
+
+#include "T2lEasyViewButton.h"
+
+#include <string>
+
+namespace T2l {
+
+class EasyView;
+class EasyViewHtml;
+
+//=============================================================================
+class EasyViewTab
+{
+public:
+//<CONSTRUCTION>
+    EasyViewTab(EasyView* parent, const char* id, QWidget* widget, const char* text);
+    virtual ~EasyViewTab();
+//<METHOD>
+    EasyViewHtml* getAsEasyViewHtml();
+    std::string text();
+//=============================================================================
+//<QT>
+//<DATA>
+    std::string     id_;
+    std::string     text_;
+    EasyView*       parent_;
+    EasyViewButton* button_;
+    QWidget*        widget_;
+private:
+//<OVERRIDES>
+};
+
+} //namespace T2l
