@@ -1,0 +1,5 @@
+*
+!*.cpp
+!*.h
+!command_registry_ex.pro
+!.gitignore
