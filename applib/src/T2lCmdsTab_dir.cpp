@@ -254,6 +254,8 @@ int CmdsTab_dir::tab_set_dir_browser2_header(TcCmdContext* /*context*/, TcArgCol
     str << "TEXT:HOME;cmd:cad_set_actual_dir \"" + drawingsDirGet() + "\";;";
     str << "SPACE:;;SPACE:;;";
     str << "TEXT:EXAMPLES;cmd:cad_set_actual_dir \"" + examplesDirGet() + "\";;";
+    str << "SPACE:;;SPACE:;;";
+    str << "TEXT:PROJEKTY;cmd:cad_set_actual_dir \"" + StoredFileNames::getExeUpDir() + "/../../PROJEKTY_UKAZKY\";;";
     str << "NEWLINE:;;";
 
     str << "TEXT:Current directory: <b>";
