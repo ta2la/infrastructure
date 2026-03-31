@@ -29,7 +29,7 @@ EasyViewTab::EasyViewTab(EasyView* parent, const char* id, QWidget* widget, cons
     QString cmd = "set_main_tab ";
     cmd += id;
 
-    int SIZE = 100;
+    int SIZE = parent->tabButtonWidth();
 
     button_ = new EasyViewButton(cmd.toStdString().c_str(), parent->tabs_);
     button_->setText(this->text().c_str());

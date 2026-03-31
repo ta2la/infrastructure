@@ -53,6 +53,9 @@ public:
 
     static EasyView* instanceBase_;
     static EasyView* instanceBase() { return instanceBase_; }
+
+    void tabButtonWidthSet(int value) { tabButtonWidth_ = value; }
+    int tabButtonWidth() const { return tabButtonWidth_; }
 //===================================================================
 //<INTERNALS>
 //<OVERRIDES>
@@ -67,6 +70,7 @@ protected:
     QWidget*        tabs_;
     QWidget*        main_;
     QStackedLayout* stacked_;
+    int             tabButtonWidth_ {100};
 
 //<QT>
     Q_OBJECT
