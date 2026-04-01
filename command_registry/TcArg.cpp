@@ -53,6 +53,11 @@ void TcArg::toString(std::string& result)
     }
 
     if ( !result.empty() && (result.at(result.size()-1) != '{') ) result.append(" ");
+    if ( !name_.empty() ) {
+        result.append("-");
+        result.append(name_);
+        result.append(" ");
+    }
     if (spaces) result.append("\"");
     for ( unsigned i = 0; i < value_.size(); i++ )
     {   char ch = value_.at(i);

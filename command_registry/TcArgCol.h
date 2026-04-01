@@ -22,6 +22,14 @@
 //=============================================================================
 class  TcArgCol/* : public TcArg*/ {
 // Argument list. Can serve as partial argument TcArg in this list.
+//
+// TcArgCol toString: "cmd positional1 positional2 -name value -name2 value2"
+//
+// Parsing: first positional args, then named args (-name value).
+// Named arg: starts with '-', non-numeric (e.g. -ZONE, -sql, not -1).
+// TODO BUG: multiple words after -name overwrite each other, only last word kept.
+//           Use "quoted string" for multi-word values after -name.
+// TODO: TcArg::toString() does not serialize arg names.
 //=============================================================================
 public:
 //<CONSTRUCTION>
