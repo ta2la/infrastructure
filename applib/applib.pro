@@ -2,7 +2,14 @@ TARGET       = applib
 TEMPLATE     = lib
 CONFIG      += staticlib
 #######################################################################################
-DESTDIR = $$PWD/debug
+wasm {
+    CONFIG(debug, debug|release): SOURCEDIR = debug_wasm
+    else:                         SOURCEDIR = release_wasm
+} else {
+    CONFIG(debug, debug|release): SOURCEDIR = debug
+    else:                         SOURCEDIR = release
+}
+DESTDIR = $$PWD/../../BUILD/$$TARGET/$$SOURCEDIR
 
 SOURCES     += $$PWD/src/*.cpp
 HEADERS     += $$PWD/include/*.h
