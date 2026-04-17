@@ -113,7 +113,9 @@ void TcCmdTransl::parseLines_(const char* script, list<TcArgCol*>* result)
             {   ps.currentVal = ps.currentCol->appendVal(ps.word.c_str());
             }
             else
-            {   ps.currentVal->valueSet(ps.word.c_str()); //TODO
+            {   std::string cur = ps.currentVal->value();
+                if (cur.empty()) ps.currentVal->valueSet(ps.word.c_str());
+                else             ps.currentVal->valueSet((cur + " " + ps.word).c_str());
             }
 
             if (ps.eocmd)
