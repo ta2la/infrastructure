@@ -187,7 +187,7 @@ QString CmdsTab_dir::getT2lsThumbs_(const QString& dirStr)
         if (image.exists() == false) {
             QDir dir(QCoreApplication::applicationDirPath());
             dir.cdUp();
-            image = QFileInfo(dir.path() + "/resource/icons/file.png");
+            image = QFileInfo("qrc:/cad_icons/resource/icons/file.png");
         }
         QString link = "<img src='";
         link += image.filePath() + "' width='180' height='180'></img>";
@@ -324,7 +324,7 @@ int CmdsTab_dir::tab_set_dir_browser2(TcCmdContext* /*context*/, TcArgCol& /*arg
         if (ifi.exists() == false) {
             QDir dir(QCoreApplication::applicationDirPath());
             dir.cdUp();
-            imageName = dir.path() + "/resource/icons/file.png";
+            imageName = "qrc:/cad_icons/resource/icons/file.png";
             ifi.setFile(imageName);
         }
         QString fileOpen = QString("cmd_cad_file_open \"") + fileName + "\" show";

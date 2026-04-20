@@ -69,9 +69,7 @@ CmdsTab_cad::CmdsTab_cad()
 QString CmdsTab_cad::symbolTag(const QString& symbol)
 {
     QString result;
-    result += "<img width='30' height='30' src='file://";
-    result += StoredFileNames::getExeUpDir() + "/resource/icons";
-
+    result += "<img width='30' height='30' src='qrc:/cad_icons/resource/icons";
     result += symbol;
     result += ".png";
     result += "'/>";
@@ -352,7 +350,7 @@ QString button(const QString& symbol, const QString& cmd = "")
 
     QString result = "TC;CB;cmd: ";
     result += acmd + ";icon: ";
-    result += StoredFileNames::getExeUpDir() + "/resource/icons/";
+    result += "qrc:/cad_icons/resource/icons/";
     result += symbol;
     result += ".png;;";
 
@@ -426,7 +424,7 @@ int CmdsTab_cad::tab_set_toolbar1(TcCmdContext* /*context*/, TcArgCol& /*args*/)
     result += "TC;CB;icon: ";
     QDir dir(QCoreApplication::applicationDirPath());
     dir.cdUp();
-    result += dir.path() + "/resource/icons/sett_ortho";
+    result += "qrc:/cad_icons/resource/icons/sett_ortho";
     if ( !CAD_SETTINGS.ortho() ) result += "_not";
     result += ".png;";
     result += "cmd: cad_set_ortho;;";
