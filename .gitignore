@@ -1,6 +1,11 @@
+# repo-visibility: public
+# CLAUDE.md not tracked here — private content (lives only in private repos)
 *
 !/applib
 !/command_registry
 !/command_registry_ex
 !/html_view
 !/object_registry
+
+# CLAUDE*.md never tracked here — risk of accidental secrets/access notes; lives only in the CLAUDE repo
+CLAUDE*.md
